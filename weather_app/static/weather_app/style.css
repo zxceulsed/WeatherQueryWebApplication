@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    text-align: center;
+    padding: 40px 20px;
+    color: #333;
+}
+
+h1 {
+    color: #1a73e8;
+    margin-bottom: 25px;
+}
+
+form {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 25px 30px;
+    display: inline-block;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+input, select, button {
+    padding: 8px 10px;
+    margin-top: 5px;
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+button {
+    margin-top: 15px;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #155fc1;
+}
+
+.card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.card img {
+    width: 90px;
+    margin-bottom: 10px;
+}
+
+.cache-info {
+    color: #777;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.error {
+    color: #d93025;
+    background: #ffeaea;
+    border: 1px solid #f0baba;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.footer-link {
+    margin-top: 25px;
+}
+
+.footer-link a {
+    color: #1a73e8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-link a:hover {
+    text-decoration: underline;
+}

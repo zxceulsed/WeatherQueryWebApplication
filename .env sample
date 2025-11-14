@@ -1,0 +1,8 @@
+SECRET_KEY=
+WEATHER_API_KEY=
+DB_NAME=weather_query_db
+DB_USER=zxcsql
+DB_PASSWORD=zxc
+POSTGRES_DB=weather_query_db
+POSTGRES_USER=zxcsql
+POSTGRES_PASSWORD=zxc

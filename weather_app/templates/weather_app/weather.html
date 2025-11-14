@@ -1,0 +1,15 @@
+{% if weather %}
+<div class="card">
+    <h2>{{ weather.city }}, {{ weather.country }}</h2>
+
+    {% if weather.from_cache %}
+        <p style="color: gray; font-size: 0.9em;">Данные получены из кэша</p>
+    {% endif %}
+
+    <img src="https://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="icon">
+    <p>{{ weather.temperature }}°C (ощущается как {{ weather.feels_like }}°C)</p>
+    <p>{{ weather.description }}</p>
+    <p>Влажность: {{ weather.humidity }}%</p>
+    <p>Ветер: {{ weather.wind_speed }} м/с</p>
+</div>
+{% endif %}

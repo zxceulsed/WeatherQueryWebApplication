@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>История запросов</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'weather_app/history.css' %}">
+</head>
+<body>
+
+<h1>История запросов</h1>
+
+<form method="get">
+    <label>Город:</label>
+    <input type="text" name="city" value="{{ city }}">
+    <label>Дата с:</label>
+    <input type="date" name="date_from" value="{{ date_from }}">
+    <label>по:</label>
+    <input type="date" name="date_to" value="{{ date_to }}">
+    <button type="submit">Фильтровать</button>
+    <a href="{% url 'history' %}">Сбросить</a>
+</form>
+
+<table>
+    <tr>
+        <th>Город</th>
+        <th>Температура</th>
+        <th>Описание</th>
+        <th>Влажность</th>
+        <th>Ветер</th>
+        <th>Ед. изм.</th>
+        <th>Из кэша</th>
+        <th>Время</th>
+    </tr>
+    {% for q in page_obj %}
+    <tr>
+        <td>{{ q.city }}</td>
+        <td>{{ q.temperature }}°{% if q.unit == 'metric' %}C{% else %}F{% endif %}</td>
+        <td>{{ q.description }}</td>
+        <td>{{ q.humidity }}%</td>
+        <td>{{ q.wind_speed }}</td>
+        <td>{% if q.unit == 'metric' %}Celsius{% else %}Fahrenheit{% endif %}</td>
+        <td>{% if q.from_cache %}Да{% else %}Нет{% endif %}</td>
+        <td>{{ q.created_at|date:"d.m.Y H:i" }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1">Первая</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+    {% endif %}
+
+    <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+    {% endif %}
+</div>
+
+<form action="{% url 'export_csv' %}" method="get">
+    <button type="submit">Export to CSV</button>
+</form>
+
+<p><a href="{% url 'weather' %}">Вернуться к поиску</a></p>
+
+</body>
+</html>

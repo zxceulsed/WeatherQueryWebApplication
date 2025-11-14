@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Прогноз погоды</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'weather_app/style.css' %}">
+</head>
+
+<body>
+
+<h1>Прогноз погоды</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <label for="unit">Единицы измерения:</label>
+    <select name="unit" id="unit">
+        <option value="metric" {% if unit == "metric" %}selected{% endif %}>Цельсий (°C)</option>
+        <option value="imperial" {% if unit == "imperial" %}selected{% endif %}>Фаренгейт (°F)</option>
+    </select>
+
+    <button type="submit">Показать погоду</button>
+</form>
+
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% endif %}
+
+{% if weather %}
+<div class="card">
+    <h2>{{ weather.city }}{% if weather.country %}, {{ weather.country }}{% endif %}</h2>
+
+    {% if weather.from_cache %}
+        <p style="color: gray; font-size: 0.9em;">Данные получены из кэша (обновляются каждые 5 минут)</p>
+    {% endif %}
+
+    {% if not weather.from_cache %}
+        <img src="https://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Погодная иконка">
+        {% if weather.feels_like %}
+            <p>Ощущается как {{ weather.feels_like }}°{% if unit == "metric" %}C{% else %}F{% endif %}</p>
+        {% endif %}
+    {% endif %}
+
+    <p style="font-size: 1.5em; font-weight: bold;">
+        {{ weather.temperature }}°{% if unit == "metric" %}C{% else %}F{% endif %}
+    </p>
+
+    <p>{{ weather.description }}</p>
+    <p>Влажность: {{ weather.humidity }}%</p>
+    <p>Ветер: {{ weather.wind_speed }} {% if unit == "metric" %}м/с{% else %}миль/ч{% endif %}</p>
+</div>
+{% endif %}
+
+<div class="footer-link">
+    <a href="{% url 'history' %}">История запросов</a>
+</div>
+
+<div style="text-align: center; margin-top: 20px;">
+  <a href="{% url 'health_check' %}"
+     class="btn btn-outline-success btn-sm"
+     style="font-size: 14px; padding: 6px 12px; border-radius: 6px; text-decoration: none;">
+     Health
+  </a>
+</div>
+
+</body>
+</html>
